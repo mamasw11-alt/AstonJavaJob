@@ -1,0 +1,61 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Student {
+    private String name;
+    private String group;
+    private int course;
+    private List<Integer> grades;
+    
+    public Student(String name, String group, int course, List<Integer> grades) {
+        this.name = name;
+        this.group = group;
+        this.course = course;
+        this.grades = new ArrayList<>(grades);
+    }
+    
+    // Метод для расчета среднего балла
+    public double getAverageGrade() {
+        if (grades.isEmpty()) {
+            return 0;
+        }
+        int sum = 0;
+        for (int grade : grades) {
+            sum += grade;
+        }
+        return (double) sum / grades.size();
+    }
+    
+    // Перевод на следующий курс
+    public void promoteToNextCourse() {
+        if (getAverageGrade() >= 3) {
+            course++;
+            System.out.println(name + " переведен на " + course + " курс");
+        } else {
+            System.out.println(name + " не может быть переведен (средний балл: " + getAverageGrade() + ")");
+        }
+    }
+    
+    // Геттеры и сеттеры
+    public String getName() {
+        return name;
+    }
+    
+    public String getGroup() {
+        return group;
+    }
+    
+    public int getCourse() {
+        return course;
+    }
+    
+    public List<Integer> getGrades() {
+        return grades;
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("Student{name='%s', group='%s', course=%d, avgGrade=%.2f}", 
+                            name, group, course, getAverageGrade());
+    }
+}
